@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { uploadImage } from '../../api/uploadImage';
 import SmallSpinner from '../../Shared/SmallSpinner';
@@ -39,11 +40,13 @@ const AddTasks = () => {
                         console.log(res)
                         setLoading(false)
                         form.reset()
+                        toast.success("Successfully added task")
                         navigate('/mytasks')
                     })
                     .catch(err => {
                         console.log(err)
                         setLoading(false)
+                        toast.error("Please provide all data and Check your Internet Connection")
                     })
             })
 
