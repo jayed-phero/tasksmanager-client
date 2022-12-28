@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {
     ArrowPathIcon,
@@ -15,6 +15,8 @@ import {
     XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthProvider'
 
 const solutions = [
     {
@@ -79,6 +81,15 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+    const { user ,  logout} = useContext(AuthContext)
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        logout()
+        .then(() => {
+            navigate('/')
+        })
+    }
     return (
         <Popover className="relative bg-white border-b-2 border-gray-100">
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -100,33 +111,41 @@ export default function Navbar() {
                         </Popover.Button>
                     </div>
                     <Popover.Group as="nav" className="hidden space-x-10 md:flex">
-                        
 
-                        <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
+
+                        <Link to='/' className="text-base font-medium text-gray-500 hover:text-gray-900">
                             Home
-                        </a>
-                        <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                            Pricing
-                        </a>
-                        <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                            Docs
-                        </a>
-                        <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                            More
-                        </a>
+                        </Link>
+                        <Link to='/addtasks' className="text-base font-medium text-gray-500 hover:text-gray-900">
+                            Add Tasks
+                        </Link>
+                        <Link to='/mytasks' className="text-base font-medium text-gray-500 hover:text-gray-900">
+                            My Tasks
+                        </Link>
+                        <Link to='/completedtasks' className="text-base font-medium text-gray-500 hover:text-gray-900">
+                            Completed Tasks
+                        </Link>
+                        {
+                            user?.uid ?
+                                <Link onClick={handleLogout} className="text-base font-medium text-gray-500 hover:text-gray-900">
+                                    Logout
+                                </Link>
+                                :
+                                undefined
+                        }
 
-                        
+
                     </Popover.Group>
                     <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-                        <a href="#" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                        <Link to='/signin' className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
                             Sign in
-                        </a>
-                        <a
-                            href="#"
+                        </Link>
+                        <Link
+                            to='/signup'
                             className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                             Sign up
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
