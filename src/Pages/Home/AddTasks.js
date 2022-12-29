@@ -32,6 +32,7 @@ const AddTasks = () => {
                     title,
                     details,
                     image: imgLink,
+                    role: "Incomplete"
                 }
 
                 console.log(taskData)
@@ -45,9 +46,13 @@ const AddTasks = () => {
                     })
                     .catch(err => {
                         console.log(err)
-                        setLoading(false)
                         toast.error("Please provide all data and Check your Internet Connection")
+                        setLoading(false)
                     })
+            })
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
             })
 
 

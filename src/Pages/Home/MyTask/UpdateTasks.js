@@ -66,9 +66,9 @@ const UpdateTasks = ({ taskInfo, refetch, setTaskInfo }) => {
                                 <div className=" font-normal block bg-white flex flex-col">
                                     <div action="">
                                         <div className="flex flex-col">
-                                            <input name='title' type="text" className='outline-none  py-3 px-3 border-2 border-gray-300 bg-gray-100 rounded-lg' placeholder='Title' defaultValue={taskInfo.title} required/>
+                                            <input name='title' type="text" className='outline-none  py-3 px-3 border-2 border-gray-300 bg-gray-100 rounded-lg' placeholder='Title' defaultValue={taskInfo?.title} required/>
 
-                                            <input name='details' type="text" className='outline-none border-2 border-gray-300 py-3 px-3 mt-2 bg-gray-100 rounded-lg' placeholder='Detils' defaultValue={taskInfo.details} required/>
+                                            <input name='details' type="text" className='outline-none border-2 border-gray-300 py-3 px-3 mt-2 bg-gray-100 rounded-lg' placeholder='Detils' defaultValue={taskInfo?.details} required/>
                                         </div>
                                         <div className='flex items-center gap-5 mt-2'>
                                             <label

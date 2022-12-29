@@ -1,11 +1,63 @@
-import React, { useContext, useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { completeTask } from '../../../api/complete';
 import { AuthContext } from '../../../context/AuthProvider';
+import ConformationModal from '../../../Shared/ConformationModal';
+import SmallSpinner from '../../../Shared/SmallSpinner';
 
-const MyTasksRow = ({ task , setTaskInfo}) => {
+const MyTasksRow = ({ task, setTaskInfo, refetch }) => {
     const { title, details, image } = task
     const [show, setShow] = useState(false)
     const { user } = useContext(AuthContext)
+    const [close, setClose] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const [deleteTask, setDeleteTask] = useState(null)
+
+
+
+    const makeComplete = task => {
+        completeTask(task)
+            .then(data => {
+                console.log(data)
+                refetch()
+            })
+        setLoading(true)
+
+        // axios.put(`${process.env.REACT_APP_API_URL}/completetask/${task?.role}`, task)
+        //     .then(res => {
+        //         console.log(res)
+        //         setLoading(false)
+        //     })
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
+            })
+    }
+
+    const modalClose = () => {
+        setDeleteTask(null)
+    }
+
+    const handleDeleteTasks = product => {
+        setLoading(true)
+        axios.delete(`${process.env.REACT_APP_API_URL}/alltask/${task?._id}`)
+            .then(res => {
+                console.log(res)
+                if (res.data.deletedCount > 0) {
+                    toast.success(`Tasks ${product.name} deleted successfully`)
+                    setLoading(false)
+                    refetch()
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                toast.error("Please check your Internet connection...")
+                setLoading(false)
+            })
+
+    }
     return (
         <div>
             <div className='max-w-xs border  rounded-lg bg-white py-3 px-4'>
@@ -39,12 +91,15 @@ const MyTasksRow = ({ task , setTaskInfo}) => {
                                         </a
                                         >
                                     </li>
-                                    <li>
+                                    <li onClick={() => setDeleteTask(task)}>
                                         <a
                                             class=" dropdown-item   text-sm  py-2  px-4 font-normal  block w-full  whitespace-nowrap  text-gray-700 hover:bg-gray-100   "
                                             href="#"
-                                        >Delete file</a
                                         >
+                                            <button type="button" class=" transition duration-150ease-in-out" data-bs-toggle="modal" data-bs-target="#exampleModal2" >
+                                                Delete task
+                                            </button>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -54,8 +109,12 @@ const MyTasksRow = ({ task , setTaskInfo}) => {
                 <h3 onClick={() => setShow(!show)} className='text-blue-500 mt-5 text-sm cursor-pointer'>See details</h3>
                 <div className={`mt-5 ${show ? "block" : "hidden"}`}>
                     <h3 className="text-sm font-medium">{details}</h3>
-                    <img src={image} className='h-20 w-32 rounded-lg shadow-xl mt-3' alt="" />
-                    <div className=" font-normal block w-full bg-white flex flex-col">
+
+                    <div className=" font-normal block w-full bg-white flex items-end justify-between gap-5">
+                        <img src={image} className='h-20 w-32 rounded-lg shadow-xl mt-3' alt="" />
+                       <Link to='/completedtasks'><button className='border bg-blue-500 w-24 py-1 text-xs rounded text-white' type='submit' >
+                           Complete
+                        </button></Link> 
                         {/* <form onSubmit={handleSubmit} action="">
                             <input name='title' type="text" className='outline-none  py-2 px-3 border-b border-gray-300' placeholder='Title' />
                             <input name='details' type="text" className='outline-none border-b border-gray-300 py-2 px-3 text-xs' placeholder='Detils' />
@@ -82,6 +141,9 @@ const MyTasksRow = ({ task , setTaskInfo}) => {
                         </form> */}
                     </div>
                 </div>
+                {
+                    <ConformationModal handleDeleteTasks={handleDeleteTasks} setLoading={setLoading} loading={loading} modalClose={modalClose} />
+                }
             </div>
         </div>
     );
