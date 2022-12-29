@@ -60,7 +60,7 @@ const AddTasks = () => {
     }
     return (
         <div className='min-h-screen px-11 py-16 mx-auto max-w-7xl px-4 sm:px-6 flex items-start justify-center'>
-            <div className=' lg:w-96 mt-5 border rounded-lg bg-white py-3 px-4'>
+            <div className='w-full lg:w-96 mt-5 border rounded-lg bg-white py-3 px-4'>
                 <h3 className="text-sm-font-medium text-blue-500">Add a tasks</h3>
                 <div className=" font-normal block bg-white flex flex-col">
                     <form onSubmit={handleSubmit} action="">
