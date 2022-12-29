@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {
     ArrowPathIcon,
@@ -18,64 +18,6 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthProvider'
 
-// const solutions = [
-//     {
-//         name: 'Analytics',
-//         description: 'Get a better understanding of where your traffic is coming from.',
-//         href: '#',
-//         icon: ChartBarIcon,
-//     },
-//     {
-//         name: 'Engagement',
-//         description: 'Speak directly to your customers in a more meaningful way.',
-//         href: '#',
-//         icon: CursorArrowRaysIcon,
-//     },
-//     { name: 'Security', description: "Your customers' data will be safe and secure.", href: '#', icon: ShieldCheckIcon },
-//     {
-//         name: 'Integrations',
-//         description: "Connect with third-party tools that you're already using.",
-//         href: '#',
-//         icon: Squares2X2Icon,
-//     },
-//     {
-//         name: 'Automations',
-//         description: 'Build strategic funnels that will drive your customers to convert',
-//         href: '#',
-//         icon: ArrowPathIcon,
-//     },
-// ]
-// const callsToAction = [
-//     { name: 'Watch Demo', href: '#', icon: PlayIcon },
-//     { name: 'Contact Sales', href: '#', icon: PhoneIcon },
-// ]
-// const resources = [
-//     {
-//         name: 'Help Center',
-//         description: 'Get all of your questions answered in our forums or contact support.',
-//         href: '#',
-//         icon: LifebuoyIcon,
-//     },
-//     {
-//         name: 'Guides',
-//         description: 'Learn how to maximize our platform to get the most out of it.',
-//         href: '#',
-//         icon: BookmarkSquareIcon,
-//     },
-//     {
-//         name: 'Events',
-//         description: 'See what meet-ups and other events we might be planning near you.',
-//         href: '#',
-//         icon: CalendarIcon,
-//     },
-//     { name: 'Security', description: 'Understand how we take your privacy seriously.', href: '#', icon: ShieldCheckIcon },
-// ]
-// const recentPosts = [
-//     { id: 1, name: 'Boost your conversion rate', href: '#' },
-//     { id: 2, name: 'How to use search engine optimization to drive traffic to your site', href: '#' },
-//     { id: 3, name: 'Improve your customer experience', href: '#' },
-// ]
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -83,6 +25,27 @@ function classNames(...classes) {
 export default function Navbar() {
     const { user, logout } = useContext(AuthContext)
     const navigate = useNavigate()
+    const [the, setThe] = useState(false)
+
+    const [theme, setTheme] = useState(null)
+    useEffect(() => {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            setTheme("dark")
+        } else {
+            setTheme("light")
+        }
+    }, [])
+    useEffect(() => {
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark")
+        } else {
+            document.documentElement.classList.remove("dark")
+        }
+    }, [theme])
+
+    const handleThemeSwitch = () => {
+        setTheme(theme === "dark" ? "light" : "dark")
+    }
 
     const handleLogout = () => {
         logout()
@@ -91,7 +54,7 @@ export default function Navbar() {
             })
     }
     return (
-        <Popover className="relative bg-white border-b-2 border-gray-100">
+        <Popover className="relative bg-white border-b-2 border-gray-100  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 ">
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
                 <div className="flex items-center justify-between  py-6 md:justify-start md:space-x-10">
                     {/* <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -144,8 +107,20 @@ export default function Navbar() {
 
 
                     </Popover.Group>
-                    <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-                        <Link to='/signin' className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                    <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0 text-gray-500 ">
+                        <div onClick={handleThemeSwitch}>
+
+                            <div className='mr-5' onClick={() => setThe(!the)}>
+                                {
+                                    the ?
+                                        <i class="fa-solid fa-sun text-3xl "></i>
+                                        :
+                                        <i class="fa-solid fa-moon text-3xl"></i>
+                                }
+                            </div>
+
+                        </div>
+                        <Link to='/signin' className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-300">
                             Sign in
                         </Link>
                         <Link
@@ -208,6 +183,18 @@ export default function Navbar() {
                                         undefined
                                 }
                                 <div className=" flex items-center gap-3 mt-5">
+                                    <div onClick={handleThemeSwitch}>
+
+                                        <div className='mr-5' onClick={() => setThe(!the)}>
+                                            {
+                                                the ?
+                                                    <i class="fa-solid fa-sun text-3xl "></i>
+                                                    :
+                                                    <i class="fa-solid fa-moon text-3xl"></i>
+                                            }
+                                        </div>
+
+                                    </div>
                                     <Link to='/signin' className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 border-2 border-blue-500 px-4 py-2 rounded-md">
                                         Sign in
                                     </Link>

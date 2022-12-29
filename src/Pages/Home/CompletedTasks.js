@@ -11,7 +11,7 @@ const CompletedTasks = () => {
             .then(res => res.json())
     })
     return (
-        <div className='min-h-screen py-16 '>
+        <div className='min-h-screen py-16  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 bg-gray-100'>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 mx-auto max-w-7xl px-4 sm:px-6">
                 {
                     tasks.length === 0 ?

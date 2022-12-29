@@ -60,13 +60,13 @@ const MyTasksRow = ({ task, setTaskInfo, refetch }) => {
     }
     return (
         <div>
-            <div className='max-w-xs border  rounded-lg bg-white py-3 px-4'>
+            <div className='max-w-xs border  rounded-lg bg-white py-3 px-4  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 '>
                 <div className='flex items-center justify-between'>
                     <h3 className='text-lg'>{title}</h3>
 
                     <div class="flex justify-center">
                         <div>
-                            <div class="dropstart relative">
+                            <div class="dropstart relative  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 ">
                                 <button
                                     class="  dropdown-toggle text-xs transition duration-150 ease-in-out  flex items-center  whitespace-nowrap  "
                                     type="button"
@@ -77,15 +77,15 @@ const MyTasksRow = ({ task, setTaskInfo, refetch }) => {
                                     <Link><i class="fa-solid fa-ellipsis text-2xl font-semibold"></i></Link>
                                 </button>
                                 <ul
-                                    class=" px-3  dropdown-menu min-w-max  hidden bg-white text-base z-50  float-left py-2 list-none text-left   rounded-lg shadow-lg mt-1 hidden  m-0 bg-clip-padding border-none  "
+                                    class=" px-3  dropdown-menu min-w-max  hidden bg-white text-base z-50  float-left py-2 list-none text-left   rounded-lg shadow-lg mt-1 hidden  m-0 bg-clip-padding border-2   dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 "
                                     aria-labelledby="dropdownMenuButton1s"
                                 >
                                     <li onClick={() => setTaskInfo(task)}>
                                         <a
-                                            class=" dropdown-item   text-sm  py-2  px-4 font-normal  block w-full  whitespace-nowrap  text-gray-700 hover:bg-gray-100   "
+                                            class=" dropdown-item   text-sm  py-2  px-4 font-normal  block w-full  whitespace-nowrap  text-gray-700 hover:bg-gray-100    dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 "
                                             href="#"
                                         >
-                                            <button type="button" class=" transition duration-150ease-in-out" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                                            <button type="button" class=" transition duration-150ease-in-out  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 " data-bs-toggle="modal" data-bs-target="#exampleModal" >
                                                 Update Task
                                             </button>
                                         </a
@@ -110,9 +110,9 @@ const MyTasksRow = ({ task, setTaskInfo, refetch }) => {
                 <div className={`mt-5 ${show ? "block" : "hidden"}`}>
                     <h3 className="text-sm font-medium">{details}</h3>
 
-                    <div className=" font-normal block w-full bg-white flex items-end justify-between gap-5">
+                    <div className=" font-normal block w-full bg-white flex items-end justify-between gap-5  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 ">
                         <img src={image} className='h-20 w-32 rounded-lg shadow-xl mt-3' alt="" />
-                       <Link to='/completedtasks'><button className='border bg-blue-500 w-24 py-1 text-xs rounded text-white' type='submit' >
+                       <Link to='/completedtasks'><button className=' bg-blue-500 w-24 py-1 text-xs rounded text-white' type='submit' >
                            Complete
                         </button></Link> 
                         {/* <form onSubmit={handleSubmit} action="">

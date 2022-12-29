@@ -6,10 +6,10 @@ const CompleteRow = ({ task }) => {
     const [show, setShow] = useState(false)
 
     return (
-        <div className='max-w-xs border border-blue-500  rounded-lg bg-white py-3 px-4'>
+        <div className='max-w-xs border border-blue-500  rounded-lg bg-white py-3 px-4  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 '>
             <div className=''>
                 <h3 className='text-lg'>{title}</h3>
-                <p className='font-semibold py-2'>{details}</p>
+                <p className='font-semibold py-2  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 '>{details}</p>
                 {/* <div class="flex justify-center">
                     <div>
                         <div class="dropstart relative">
@@ -54,9 +54,9 @@ const CompleteRow = ({ task }) => {
             </div>
             <h3 onClick={() => setShow(!show)} className='text-blue-500 mt-5 text-sm cursor-pointer'>See details</h3>
             <div className=''>
-                <div className=" font-normal block w-full bg-white flex items-end justify-between gap-5">
+                <div className=" font-normal block w-full bg-white flex items-end justify-between gap-5  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 ">
                     <img src={image} className='h-20 w-32 rounded-lg shadow-xl mt-3' alt="" />
-                    <Link to='/mytasks'><button className='border bg-blue-500 w-24 py-1 text-xs rounded text-white' type='submit' >
+                    <Link to='/mytasks'><button className=' bg-blue-500 w-24 py-1 text-xs rounded text-white' type='submit' >
                         InComplete
                     </button></Link>
                 </div>
