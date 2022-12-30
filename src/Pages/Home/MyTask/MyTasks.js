@@ -1,16 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthProvider';
 import MyTasksRow from './MyTasksRow';
 import UpdateTasks from './UpdateTasks';
 
 const MyTasks = () => {
     const [taskInfo, setTaskInfo] = useState(null)
+    const {user} = useContext(AuthContext)
 
     const { data: tasks = [], isLoading, refetch } = useQuery({
-        queryKey: ['postedquery'],
-        queryFn: () => fetch(`${process.env.REACT_APP_API_URL}/postedtasks`)
+        queryKey: ['postedtasks'],
+        queryFn: () => fetch(`${process.env.REACT_APP_API_URL}/postedtasks?email=${user?.email}`)
             .then(res => res.json())
     })
     console.log(tasks)

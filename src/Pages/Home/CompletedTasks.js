@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthProvider';
 import CompleteRow from './CompleteRow';
 import MyTasksRow from './MyTask/MyTasksRow';
 
 const CompletedTasks = () => {
+    const {user} = useContext(AuthContext)
 
     const { data: tasks = [], isLoading, refetch } = useQuery({
-        queryKey: ['postedquery'],
-        queryFn: () => fetch(`${process.env.REACT_APP_API_URL}/postedtasks`)
+        queryKey: ['postedtasks'],
+        queryFn: () => fetch(`${process.env.REACT_APP_API_URL}/postedtasks?email=${user?.email}`)
             .then(res => res.json())
     })
     return (

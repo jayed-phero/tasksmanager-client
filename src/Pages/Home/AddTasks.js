@@ -1,12 +1,15 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { uploadImage } from '../../api/uploadImage';
 import SmallSpinner from '../../Shared/SmallSpinner';
+import { AuthContext } from '../../context/AuthProvider'
+
 
 const AddTasks = () => {
     const [loading, setLoading] = useState(false)
+    const {user} = useContext(AuthContext)
     const navigate = useNavigate()
 
     const [value, setValue] = React.useState('');
@@ -32,6 +35,8 @@ const AddTasks = () => {
                     title,
                     details,
                     image: imgLink,
+                    name: user?.displayName,
+                    email: user?.email,
                     role: "Incomplete"
                 }
 
@@ -60,7 +65,8 @@ const AddTasks = () => {
     }
     return (
         <div className=' dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 bg-gray-100'>
-            <div className='min-h-screen py-16 mx-auto max-w-7xl px-4  flex items-start justify-center '>
+            <div className='min-h-screen py-11 mx-auto max-w-7xl px-6 flex flex-col items-center '>
+                <h3 className='text-center w-2/3 text-gray-700 dark:text-gray-300'>Type Your Important Task Here. Its very easy.</h3>
                 <div className='w-full lg:w-96 mt-5 border rounded-lg bg-white py-3 px-4  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 '>
                     <h3 className="text-sm font-medium text-blue-500">Add a tasks</h3>
                     <div className=" font-normal block bg-white dark:bg-gray-800 flex flex-col">
@@ -81,6 +87,7 @@ const AddTasks = () => {
                                         id='image'
                                         accept='image/*'
                                         hidden
+                                        required
                                     />
                                 </label>
                                 <button className=' bg-blue-500 w-16 py-1 text-xs rounded text-white' type='submit' >

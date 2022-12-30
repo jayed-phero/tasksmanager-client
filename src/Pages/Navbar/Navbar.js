@@ -108,14 +108,14 @@ export default function Navbar() {
 
                     </Popover.Group>
                     <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0 text-gray-500 ">
-                        <div onClick={handleThemeSwitch}>
+                        <div className='cursor-pointer' onClick={handleThemeSwitch}>
 
                             <div className='mr-5' onClick={() => setThe(!the)}>
                                 {
                                     the ?
-                                        <i class="fa-solid fa-sun text-3xl "></i>
-                                        :
                                         <i class="fa-solid fa-moon text-3xl"></i>
+                                        :
+                                        <i class="fa-solid fa-sun text-3xl "></i>
                                 }
                             </div>
 
@@ -161,7 +161,7 @@ export default function Navbar() {
                                     </Popover.Button>
                                 </div>
                             </div>
-                            <div className='flex flex-col gap-3 mt-5'>
+                            <div className='flex flex-col gap-5 mt-5 z-50'>
                                 <Link to='/' className="text-base font-medium text-gray-500 hover:text-gray-900">
                                     Home
                                 </Link>
@@ -182,15 +182,15 @@ export default function Navbar() {
                                         :
                                         undefined
                                 }
-                                <div className=" flex items-center gap-3 mt-5">
+                                <div className=" flex items-center gap-3 mt-5 cursor-pointer">
                                     <div onClick={handleThemeSwitch}>
 
                                         <div className='mr-5' onClick={() => setThe(!the)}>
                                             {
                                                 the ?
-                                                    <i class="fa-solid fa-sun text-3xl "></i>
-                                                    :
                                                     <i class="fa-solid fa-moon text-3xl"></i>
+                                                    :
+                                                    <i class="fa-solid fa-sun text-3xl "></i>
                                             }
                                         </div>
 

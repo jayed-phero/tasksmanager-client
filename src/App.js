@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState(null)
  useEffect(()=> {
   if(window.matchMedia("(prefers-color-scheme: dark)").matches){
     setTheme("dark")
